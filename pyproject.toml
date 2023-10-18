@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "glpn"
+version = "0.1.0"
+description = ""
+authors = ["Danielle Ben Bashat <daniellebenba@gmail.com>"]
+#readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8, <3.10"
+transformers = "^4.31.0"
+pillow = "^10.0.0"
+google-cloud-storage = "^2.10.0"
+protobuf = "^3.19.4"
+numpy = "^1.23.0"
+onnx2kerastl = "0.0.114"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

@@ -1,0 +1,79 @@
+
+# --------------- GCS --------------------
+
+GCS:
+  bucket_name: 'datasets-reteai'
+  project_id: 'splendid-flow-231921'
+  data_dir: 'KITTI/data_depth_annotated'
+  folders:
+    - '2011_09_26_drive_0001_sync'
+    - '2011_09_26_drive_0002_sync'
+    - '2011_09_26_drive_0005_sync'
+    - '2011_09_26_drive_0009_sync'
+    - '2011_09_26_drive_0020_sync'
+    - '2011_09_26_drive_0027_sync'
+    - '2011_09_28_drive_0034_sync'
+    - '2011_09_26_drive_0035_sync'
+    - '2011_09_28_drive_0045_sync'
+    - '2011_09_28_drive_0047_sync'
+    - '2011_09_26_drive_0052_sync'
+    - '2011_09_28_drive_0066_sync'
+  paths_dir: 'eigen_benchmark'
+  fname_train_paths: 'train_list.txt'
+  fname_test_paths: 'test_list.txt'
+
+
+
+# --------------- Data --------------------
+
+Data:
+  seed: 42
+  image_size:
+    - 640
+    - 480
+  train_size: 140
+  val_size: 60
+  n_frames: 20  # number of first sample frames per folder record
+  cmap: 'magma'
+
+KittiCat:
+    2011_09_26_drive_0001_sync: City
+    2011_09_26_drive_0002_sync: City
+    2011_09_26_drive_0005_sync: City
+    2011_09_26_drive_0009_sync: City
+    2011_09_26_drive_0020_sync: Residential
+    2011_09_26_drive_0027_sync: Road
+    2011_09_28_drive_0034_sync: Campus
+    2011_09_26_drive_0035_sync: Residential
+    2011_09_28_drive_0045_sync: Campus
+    2011_09_28_drive_0047_sync: Campus
+    2011_09_26_drive_0052_sync: Road
+    2011_09_28_drive_0066_sync: Person
+
+
+
+#SUPERCATEGORY_GROUNDTRUTH: False
+#LOAD_UNION_CATEGORIES_IMAGES: False
+#
+## --------------- Augmentations --------------------
+#apply_augmentation: True
+#image_mean: np.array([0.485, 0.456, 0.406])
+#image_std: np.array([0.229, 0.224, 0.225])
+#kitti_mean: np.array([0.379, 0.398, 0.384])
+#kitti_std: np.array([0.298, 0.308, 0.315])
+#val_indices: [190, 198, 45, 25, 141, 104, 17, 162, 49, 167, 168, 34, 150, 113, 44,
+#               182, 196, 11, 6, 46, 133, 74, 81, 65, 66, 79, 96, 92, 178, 103]
+#augment: True
+#subset_repeats: [1, 1]
+#
+## Augmentation limits
+#HUE_LIM: 0.3 / np.pi
+#SATUR_LIM: 0.3
+#BRIGHT_LIM: 0.3
+#CONTR_LIM: 0.3
+#DEFAULT_GPS_HEADING: 281.
+#DEFAULT_GPS_LATITUDE: 50.780881831805594
+#DEFAULT_GPS_LONGTITUDE: 6.108147476339736
+#DEFAULT_TEMP: 19.5
+#DEFAULT_SPEED: 10.81
+#DEFAULT_YAW_RATE: 0.171

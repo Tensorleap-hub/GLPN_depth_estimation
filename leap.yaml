@@ -1,0 +1,18 @@
+codeIntegrationId: 64eca65e7653100019ecfd2e
+projectId: 64d222a016b2ed001937669e
+entryFile: 'leap_binder.py'
+include:
+  - eval/
+  - data/kitti.py
+  - GLPN/GLPN.py
+  - tl_helpers/preprocess.py
+  - leap_binder.py
+  - eval/loss.py
+  - eval/metrics.py
+  - utils/gcs_utils.py
+  - configs.py
+  - config.yaml
+  - leap.yaml
+#  - leap_test.py
+#  - leap_custom_test.py
+
