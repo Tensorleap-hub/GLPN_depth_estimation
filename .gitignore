@@ -1,6 +1,6 @@
 
 
 # Ignore The Models
-models/GLPN_Kitti.h5
-models/GLPN_Kitti.onnx
+#models/GLPN_Kitti.h5
+#models/GLPN_Kitti.onnx
 
