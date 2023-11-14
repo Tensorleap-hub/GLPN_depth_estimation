@@ -1,12 +1,3 @@
-<style>
-  .image-container {
-    text-align: center;
-  }
-  .caption {
-    font-style: italic;
-    font-size: 14px;
-  }
-</style>
 
 
 # GLPN: Monocular Depth Estimation 
