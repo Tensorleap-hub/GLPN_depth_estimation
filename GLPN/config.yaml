@@ -2,8 +2,8 @@
 # --------------- GCS --------------------
 
 GCS:
-  bucket_name: 'datasets-reteai'
-  project_id: 'splendid-flow-231921'
+  bucket_name: 'tl-private-datasets'
+  project_id: 'tl-private-dev-project'
   data_dir: 'KITTI/data_depth_annotated'
   folders:
     - '2011_09_26_drive_0001_sync'
