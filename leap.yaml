@@ -1,18 +1,16 @@
-codeIntegrationId: 64eca65e7653100019ecfd2e
-projectId: 64d222a016b2ed001937669e
-entryFile: 'leap_binder.py'
+codeIntegrationId: 66aba984e01ea37f92f51b2f
+projectId: 66aba981e01ea37f92f51b2b
+secretId: 6672a0e79cc9e3c8635a3927
+entryFile: leap_binder.py
 include:
-  - eval/
-  - data/kitti.py
-  - GLPN/GLPN.py
-  - tl_helpers/preprocess.py
-  - leap_binder.py
-  - eval/loss.py
-  - eval/metrics.py
-  - utils/gcs_utils.py
-  - configs.py
-  - config.yaml
-  - leap.yaml
-#  - leap_test.py
-#  - leap_custom_test.py
-
+    - eval/
+    - data/kitti.py
+    - GLPN/GLPN.py
+    - tl_helpers/preprocess.py
+    - leap_binder.py
+    - eval/loss.py
+    - eval/metrics.py
+    - utils/gcs_utils.py
+    - GLPN/configs.py
+    - GLPN/config.yaml
+    - leap.yaml
