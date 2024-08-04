@@ -3,8 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
 from matplotlib import cm as cmx
-
+import tensorflow as tf
 from tensorflow.python.ops.numpy_ops import np_config
+
 np_config.enable_numpy_behavior()
 
 from code_loader import leap_binder
@@ -19,6 +20,7 @@ from utils.gcs_utils import _download
 from eval.loss import si_log_loss, pixelwise_si_log_loss
 from eval.metrics import calc_errors
 
+
 # from onnx2kerastl.customonnxlayer.onnxerf import OnnxErf
 # from onnx2kerastl.customonnxlayer.onnxreducemean import OnnxReduceMean
 # from onnx2kerastl.customonnxlayer.onnxsqrt import OnnxSqrt
@@ -28,19 +30,20 @@ from eval.metrics import calc_errors
 
 def input_image(idx: int, data: PreprocessResponse) -> np.ndarray:
     data = data.data
-    cloud_path = data.iloc[idx]['image'] #[idx % data["real_size"]]
+    cloud_path = data.iloc[idx]['image']  # [idx % data["real_size"]]
     cloud_path = gcs_config.data_dir + cloud_path
     fpath = _download(cloud_path)
-    img = Image.open(fpath)#.convert('RGB')
+    img = Image.open(fpath)  # .convert('RGB')
     img = img.resize(data_config.image_size)
-    img = IMG_PROCESSOR(img)#, return_tensors="pt")
+    img = IMG_PROCESSOR(img)  # , return_tensors="pt")
     return img['pixel_values'][0].swapaxes(0, -1).swapaxes(0, 1)
+
 
 # ----------------------------------- GT ------------------------------------------
 
 def gt_depth(idx: int, data: PreprocessResponse) -> np.ndarray:
     data = data.data
-    cloud_path = data.iloc[idx]['gt']# [idx % data["real_size"]]
+    cloud_path = data.iloc[idx]['gt']  # [idx % data["real_size"]]
     cloud_path = gcs_config.data_dir + cloud_path
     fpath = _download(cloud_path)
     depth_png = Image.open(fpath).resize(data_config.image_size)
@@ -49,7 +52,7 @@ def gt_depth(idx: int, data: PreprocessResponse) -> np.ndarray:
     # make sure we have a proper 16bit depth map here.. not 8bit!
     assert (np.max(depth_png) > 255)
 
-    depth = depth_png.astype(np.float) / 256.
+    depth = depth_png.astype(np.float32) / 256.
     depth[depth_png == 0] = -1.
     return depth
 
@@ -81,12 +84,14 @@ def metadata_folder(idx: int, data: PreprocessResponse) -> float:
 def metadata_depth_mean(idx: int, data: PreprocessResponse) -> float:
     return gt_depth(idx, data).mean()
 
+
 def metadata_depth_std(idx: int, data: PreprocessResponse) -> float:
     return gt_depth(idx, data).std()
 
 
 def metadata_depth_min(idx: int, data: PreprocessResponse) -> float:
     return gt_depth(idx, data).min()
+
 
 def metadata_depth_max(idx: int, data: PreprocessResponse) -> float:
     return gt_depth(idx, data).max()
@@ -105,6 +110,7 @@ def depth_prediction_vis(pred) -> LeapImage:
 
 
 def overlayed_depth_prediction_vis(image, pred) -> LeapImage:
+    pred = tf.transpose(pred, perm=[1, 0])
     data = depth_prediction_vis(pred).data / 255.
     overlayed_image = ((data * 1 + image * 0.2).clip(0, 1) * 255).astype(np.uint8)
     return LeapImage(overlayed_image)
@@ -142,7 +148,7 @@ def loss_visualizer(image, prediction, gt) -> LeapImage:
     ls_image = ls_image.clip(0, np.percentile(ls_image, 95))
     ls_image /= ls_image.max()
     heatmap = scalarMap.to_rgba(ls_image[..., 0])[..., :-1]
-    overlayed_image = ((heatmap * 0.6 + image * 0.4).clip(0, 1)*255).astype(np.uint8)
+    overlayed_image = ((heatmap * 0.6 + image * 0.4).clip(0, 1) * 255).astype(np.uint8)
     return LeapImage(overlayed_image)
 
 
@@ -169,12 +175,15 @@ leap_binder.set_metadata(metadata_depth_max, 'depth_max')
 # leap_binder.set_custom_layer(OnnxErf, "OnnxErf")
 
 leap_binder.set_visualizer(function=depth_prediction_vis, visualizer_type=LeapDataType.Image, name='depth_pred_vis')
-leap_binder.set_visualizer(function=overlayed_depth_prediction_vis, visualizer_type=LeapDataType.Image, name='overlayed_depth_pred_vis')
-leap_binder.set_visualizer(function=overlayed_depth_gt_vis, visualizer_type=LeapDataType.Image, name='overlayed_depth_gt_vis')
+leap_binder.set_visualizer(function=overlayed_depth_prediction_vis, visualizer_type=LeapDataType.Image,
+                           name='overlayed_depth_pred_vis')
+leap_binder.set_visualizer(function=overlayed_depth_gt_vis, visualizer_type=LeapDataType.Image,
+                           name='overlayed_depth_gt_vis')
 leap_binder.set_visualizer(function=depth_gt_vis, visualizer_type=LeapDataType.Image, name='depth_gt_vis')
 leap_binder.set_visualizer(function=loss_visualizer, visualizer_type=LeapDataType.Image, name='depth_loss')
 
 leap_binder.add_custom_loss(si_log_loss, 'si_log_loss')
 leap_binder.add_custom_metric(calc_errors, 'error')
 
-leap_binder.add_prediction('depth_estimation', ['1'])
+if __name__ == "__main__":
+    leap_binder.check()
