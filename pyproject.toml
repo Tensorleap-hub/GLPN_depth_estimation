@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "glpn"
+name = "GLPN_depth_estimation"
 version = "0.1.0"
 description = ""
 authors = ["Danielle Ben Bashat <daniellebenba@gmail.com>"]
@@ -17,6 +17,7 @@ code-loader = "^1.0.42"
 transformers = "^4.43.3"
 google-cloud-storage = "^2.18.0"
 onnxruntime = "^1.18.1"
+code-loader-helpers = "^1.0.20"
 
 [build-system]
 requires = ["poetry-core"]
