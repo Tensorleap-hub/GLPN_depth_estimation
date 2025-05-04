@@ -1,8 +1,10 @@
+from typing import Dict, Union, Any
+
 import numpy as np
 import tensorflow as tf
 
 
-def calc_errors(gt, pred):
+def calc_errors(gt: np.ndarray, pred: np.ndarray) -> Dict[str, Union[int, Any]]:
     # print(f"gt shape{gt.shape}, pred shape:{pred.shape}")
     pred = tf.transpose(pred, perm=[0,2,1])
     # pred = tf.squeeze(pred, axis=-1)

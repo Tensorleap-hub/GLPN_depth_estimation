@@ -110,6 +110,8 @@ def depth_prediction_vis(pred) -> LeapImage:
 
 
 def overlayed_depth_prediction_vis(image, pred) -> LeapImage:
+    image = np.squeeze(image)
+    pred = np.squeeze(pred)
     pred = tf.transpose(pred, perm=[1, 0])
     data = depth_prediction_vis(pred).data / 255.
     overlayed_image = ((data * 1 + image * 0.2).clip(0, 1) * 255).astype(np.uint8)
@@ -117,6 +119,8 @@ def overlayed_depth_prediction_vis(image, pred) -> LeapImage:
 
 
 def overlayed_depth_gt_vis(image, gt) -> LeapImage:
+    image = np.squeeze(image)
+    gt = np.squeeze(gt)
     data = depth_gt_vis(gt).data / 255.
     overlayed_image = ((data * 1 + image * 0.2).clip(0, 1) * 255).astype(np.uint8)
     return LeapImage(overlayed_image)
@@ -141,6 +145,8 @@ def depth_loss(y_true, y_pred) -> LeapImage:
 
 
 def loss_visualizer(image, prediction, gt) -> LeapImage:
+    image = np.squeeze(image)
+    prediction =  np.squeeze(prediction)
     jet = plt.get_cmap('jet')
     cNorm = colors.Normalize(vmin=0, vmax=1)
     scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=jet)
@@ -185,5 +191,3 @@ leap_binder.set_visualizer(function=loss_visualizer, visualizer_type=LeapDataTyp
 leap_binder.add_custom_loss(si_log_loss, 'si_log_loss')
 leap_binder.add_custom_metric(calc_errors, 'error')
 
-if __name__ == "__main__":
-    leap_binder.check()

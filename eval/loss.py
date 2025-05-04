@@ -18,7 +18,7 @@ def origin_si_log_loss(y_true, y_pred, epsilon=1e-7):
     return loss
 
 
-def si_log_loss(y_true, y_pred):
+def si_log_loss(y_true: np.ndarray, y_pred: np.ndarray) ->np.ndarray:
     epsilon = 1e-7
     # y_pred = tf.squeeze(y_pred, axis=-1)
     y_pred = tf.transpose(y_pred, perm=[0, 2, 1])
@@ -30,9 +30,8 @@ def si_log_loss(y_true, y_pred):
 
     diff_log = tf.math.log(y_true.astype(np.float32)) - tf.math.log(y_pred.astype(np.float32))
     n = valid_mask.size//len(valid_mask)
-    loss_per_sample = tf.sqrt(tf.math.divide(tf.math.reduce_sum(tf.math.pow(diff_log, 2), axis=(1, 2)), n) - 0.5 * tf.math.pow(tf.math.divide(tf.math.reduce_sum(diff_log, axis=(1, 2)), n), 2))
-    loss = tf.math.reduce_mean(loss_per_sample)
-    return loss.astype(float)
+    loss = tf.sqrt(tf.math.divide(tf.math.reduce_sum(tf.math.pow(diff_log, 2), axis=(1, 2)), n) - 0.5 * tf.math.pow(tf.math.divide(tf.math.reduce_sum(diff_log, axis=(1, 2)), n), 2))
+    return loss.numpy()
 
 
 def old_pixelwise_si_log_loss(y_true, y_pred):
