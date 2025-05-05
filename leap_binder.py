@@ -103,6 +103,7 @@ def metadata_depth_max(idx: int, data: PreprocessResponse) -> float:
 def depth_prediction_vis(pred) -> LeapImage:
     pred = pred[0, ...] if len(pred.shape) == 4 else pred
     output = np.squeeze(pred)
+    output = np.transpose(output, (1,0))
     formatted = (output * 255 / np.max(output)).astype("uint8")
     cmap = plt.get_cmap(data_config.cmap)
     colored_depth = cmap(formatted).astype(np.float32)[..., :-1]
@@ -112,7 +113,7 @@ def depth_prediction_vis(pred) -> LeapImage:
 def overlayed_depth_prediction_vis(image, pred) -> LeapImage:
     image = np.squeeze(image)
     pred = np.squeeze(pred)
-    pred = tf.transpose(pred, perm=[1, 0])
+    # pred = tf.transpose(pred, perm=[1, 0])
     data = depth_prediction_vis(pred).data / 255.
     overlayed_image = ((data * 1 + image * 0.2).clip(0, 1) * 255).astype(np.uint8)
     return LeapImage(overlayed_image)
