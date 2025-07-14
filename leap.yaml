@@ -13,4 +13,5 @@ include:
     - utils/gcs_utils.py
     - GLPN/configs.py
     - GLPN/config.yaml
+    - requirements.txt
     - leap.yaml

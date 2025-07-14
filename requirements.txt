@@ -1,0 +1,9 @@
+protobuf==3.19.5
+transformers>=4.43.3
+google-cloud-storage>=2.18.0
+pandas
+Pillow>=8.3.2
+matplotlib==3.7.5
+tensorflow==2.10.0; sys_platform != "darwin"
+tensorflow-macos==2.10.0; sys_platform == "darwin"
+torch
