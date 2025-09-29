@@ -1,7 +1,7 @@
-codeIntegrationId: 66aba984e01ea37f92f51b2f
-projectId: 66aba981e01ea37f92f51b2b
-secretId: 6672a0e79cc9e3c8635a3927
-entryFile: leap_binder.py
+codeIntegrationId: 68da6371fb29594dfe644e61
+projectId: 68da636cfb29594dfe644e5b
+secretId: 68cfa287149a19afa0a2d701
+entryFile: leap_integration.py
 include:
     - eval/
     - data/kitti.py
@@ -15,3 +15,5 @@ include:
     - GLPN/config.yaml
     - requirements.txt
     - leap.yaml
+    - leap_integration.py
+pythonVersion: py38
