@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+from code_loader.inner_leap_binder.leapbinder_decorators import tensorleap_input_encoder, tensorleap_custom_loss
 from scipy.optimize import minimize
 
 
@@ -17,11 +18,11 @@ def origin_si_log_loss(y_true, y_pred, epsilon=1e-7):
 
     return loss
 
-
+@tensorleap_custom_loss('si_log_loss')
 def si_log_loss(y_true: np.ndarray, y_pred: np.ndarray) ->np.ndarray:
     epsilon = 1e-7
     # y_pred = tf.squeeze(y_pred, axis=-1)
-    y_pred = tf.transpose(y_pred, perm=[0, 2, 1])
+    #y_pred = tf.transpose(y_pred, perm=[0, 2, 1])
     valid_mask = tf.cast(y_true > 0, dtype=tf.bool)
 
     # Add epsilon to avoid division by zero
@@ -59,7 +60,7 @@ def old_pixelwise_si_log_loss(y_true, y_pred):
 
 def pixelwise_si_log_loss(y_true, y_pred):
     # y_pred = tf.squeeze(y_pred, axis=-1)
-    y_pred = tf.transpose(y_pred, perm=[1, 0])
+    #y_pred = tf.transpose(y_pred, perm=[1, 0])
     valid_mask = tf.cast(y_true > 0, dtype=tf.bool)
 
     # Define the objective function
