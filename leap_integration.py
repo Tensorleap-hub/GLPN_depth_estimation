@@ -3,11 +3,15 @@ import sys
 from code_loader.contract.datasetclasses import PredictionTypeHandler
 from keras.models import load_model
 import os
+
+from eval.metrics import calc_errors
 from leap_binder import *
-from eval.loss import si_log_loss, pixelwise_si_log_loss
+from eval.loss import si_log_loss
 from code_loader.plot_functions.visualize import visualize
-from code_loader.inner_leap_binder.leapbinder_decorators import tensorleap_load_model, integration_test
+from code_loader.inner_leap_binder.leapbinder_decorators import tensorleap_load_model, tensorleap_integration_test
 import onnxruntime
+from tl_helpers.preprocess import subset_images
+
 sys.setrecursionlimit(10000)
 
 prediction_type1 = PredictionTypeHandler('depth', ['high', 'low'], channel_dim=1)
@@ -19,7 +23,7 @@ def load_model():
     sess = onnxruntime.InferenceSession(os.path.join(dir_path, model_path))
     return sess
 
-@integration_test()
+@tensorleap_integration_test()
 def integration_test(idx, subset):
     plot_vis = True
     sess = load_model()

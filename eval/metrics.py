@@ -1,16 +1,10 @@
 from typing import Dict, Union, Any
-
 import numpy as np
-import tensorflow as tf
-from code_loader.inner_leap_binder.leapbinder_decorators import tensorleap_input_encoder, tensorleap_custom_loss, \
-    tensorleap_custom_metric
+from code_loader.inner_leap_binder.leapbinder_decorators import tensorleap_custom_metric
 
 
 @tensorleap_custom_metric('error')
 def calc_errors(gt: np.ndarray, pred: np.ndarray) -> Dict[str, Union[int, Any]]:
-    # print(f"gt shape{gt.shape}, pred shape:{pred.shape}")
-    #pred = tf.transpose(pred, perm=[0,2,1])
-    # pred = tf.squeeze(pred, axis=-1)
     valid_mask = gt > 0
     gt = gt[:, valid_mask[0, ...]].astype(np.float32)#.reshape((gt.shape[0], -1))
     pred = pred[:, valid_mask[0, ...]].astype(np.float32)#.reshape((pred.shape[0], -1))

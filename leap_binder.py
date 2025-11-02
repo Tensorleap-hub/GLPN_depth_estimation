@@ -25,10 +25,6 @@ from eval.loss import si_log_loss, pixelwise_si_log_loss
 from eval.metrics import calc_errors
 
 
-# from onnx2kerastl.customonnxlayer.onnxerf import OnnxErf
-# from onnx2kerastl.customonnxlayer.onnxreducemean import OnnxReduceMean
-# from onnx2kerastl.customonnxlayer.onnxsqrt import OnnxSqrt
-
 
 # ----------------------------------- Input ------------------------------------------
 @tensorleap_input_encoder('normalized_image', channel_dim=1)
@@ -140,38 +136,4 @@ def loss_visualizer(image, prediction, gt) -> LeapImage:
     heatmap = scalarMap.to_rgba(ls_image[..., 0])[..., :-1]
     overlayed_image = ((heatmap * 0.6 + image * 0.4).clip(0, 1) * 255).astype(np.uint8)
     return LeapImage(overlayed_image)
-
-
-# ----------------------------------- Binding ------------------------------------------
-
-
-#leap_binder.set_preprocess(subset_images)
-
-#leap_binder.set_input(input_image, 'normalized_image')
-#leap_binder.set_ground_truth(gt_depth, 'mask')
-
-#leap_binder.set_metadata(metadata_filenumber, 'filenumber')
-#leap_binder.set_metadata(metadata_category, 'category')
-#leap_binder.set_metadata(metadata_folder, 'folder')
-#leap_binder.set_metadata(metadata_idx, 'idx')
-#leap_binder.set_metadata(metadata_brightness, 'brightness')
-#leap_binder.set_metadata(metadata_depth_mean, 'depth_mean')
-#leap_binder.set_metadata(metadata_depth_std, 'depth_std')
-#leap_binder.set_metadata(metadata_depth_min, 'depth_min')
-#leap_binder.set_metadata(metadata_depth_max, 'depth_max')
-
-# leap_binder.set_custom_layer(OnnxReduceMean, "OnnxReduceMean")
-# leap_binder.set_custom_layer(OnnxSqrt, "OnnxSqrt")
-# leap_binder.set_custom_layer(OnnxErf, "OnnxErf")
-
-#leap_binder.set_visualizer(function=depth_prediction_vis, visualizer_type=LeapDataType.Image, name='depth_pred_vis')
-# leap_binder.set_visualizer(function=overlayed_depth_prediction_vis, visualizer_type=LeapDataType.Image,
-#                            name='overlayed_depth_pred_vis')
-# leap_binder.set_visualizer(function=overlayed_depth_gt_vis, visualizer_type=LeapDataType.Image,
-#                            name='overlayed_depth_gt_vis')
-#leap_binder.set_visualizer(function=depth_gt_vis, visualizer_type=LeapDataType.Image, name='depth_gt_vis')
-#leap_binder.set_visualizer(function=loss_visualizer, visualizer_type=LeapDataType.Image, name='depth_loss')
-
-#leap_binder.add_custom_loss(si_log_loss, 'si_log_loss')
-#leap_binder.add_custom_metric(calc_errors, 'error')
 
