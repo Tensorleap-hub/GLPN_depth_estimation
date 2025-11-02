@@ -3,21 +3,15 @@ name = "GLPN_depth_estimation"
 version = "0.1.0"
 description = ""
 authors = ["Danielle Ben Bashat <daniellebenba@gmail.com>"]
-#readme = "README.md"
-
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"
-#transformers = "^4.31.0"
-#pillow = "^10.0.0"
-#google-cloud-storage = "^2.10.0"
 protobuf = "^3.19.4"
-#numpy = "^1.23.0"
-#onnx2kerastl = "0.0.114"
-code-loader = "^1.0.42"
+code-loader = "^1.0.145"
 transformers = "^4.43.3"
 google-cloud-storage = "^2.18.0"
 onnxruntime = "^1.18.1"
 code-loader-helpers = "^1.0.20"
+pandas = "2.0.3"
 
 [build-system]
 requires = ["poetry-core"]

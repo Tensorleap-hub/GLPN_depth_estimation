@@ -73,8 +73,8 @@ class Kitti:
         data_dict = {'train': {}, "validation": {}}
         TRAIN_SIZE = data_config.train_size
         VAL_SIZE = data_config.val_size
-        data_dict['train'] = self.train_df.sample(min(TRAIN_SIZE, len(self.train_df)), ignore_index=True)
-        data_dict['validation'] = self.val_df.sample(min(VAL_SIZE, len(self.val_df)), ignore_index=True)
+        data_dict['train'] = self.train_df.sample(min(TRAIN_SIZE, len(self.train_df)), ignore_index=True, random_state=0)
+        data_dict['validation'] = self.val_df.sample(min(VAL_SIZE, len(self.val_df)), ignore_index=True, random_state=0)
         return data_dict
 
 
