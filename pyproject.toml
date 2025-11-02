@@ -6,7 +6,7 @@ authors = ["Danielle Ben Bashat <daniellebenba@gmail.com>"]
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"
 protobuf = "^3.19.4"
-code-loader = "1.0.143.dev4"
+code-loader = "^1.0.145"
 transformers = "^4.43.3"
 google-cloud-storage = "^2.18.0"
 onnxruntime = "^1.18.1"
