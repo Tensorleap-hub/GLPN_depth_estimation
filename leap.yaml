@@ -1,5 +1,5 @@
-codeIntegrationId: 690715e0fcfae1a75a5fd399
-projectId: 690715c7fcfae1a75a5fd392
+codeIntegrationId:
+projectId:
 secretId: 690706b6fcfae1a75a5fd2ce
 entryFile: leap_integration.py
 include:
