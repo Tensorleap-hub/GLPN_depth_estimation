@@ -1,9 +1,10 @@
 from typing import Dict, Union, Any
 import numpy as np
+from code_loader.contract.enums import MetricDirection
 from code_loader.inner_leap_binder.leapbinder_decorators import tensorleap_custom_metric
 
 
-@tensorleap_custom_metric('error')
+@tensorleap_custom_metric('error',direction=MetricDirection.Downward)
 def calc_errors(gt: np.ndarray, pred: np.ndarray) -> Dict[str, Union[int, Any]]:
     valid_mask = gt > 0
     gt = gt[:, valid_mask[0, ...]].astype(np.float32)#.reshape((gt.shape[0], -1))
